@@ -1,0 +1,80 @@
+import type { UITypeConfig } from '../types';
+
+export const componentLibraryConfig: UITypeConfig = {
+  type: 'componentLibrary',
+  label: 'UI Kit',
+  icon: 'Box',
+  description: 'Generate prompts for design systems and UI component libraries',
+  configOptions: [
+    {
+      id: 'libraryType',
+      label: 'Library Type',
+      type: 'select',
+      options: [
+        'Design System',
+        'UI Component Kit',
+        'Icon Library',
+        'Pattern Library',
+      ],
+      defaultValue: 'Design System',
+    },
+    {
+      id: 'components',
+      label: 'Components to Include',
+      type: 'multiSelect',
+      options: [
+        'Buttons',
+        'Input Fields',
+        'Cards',
+        'Modals/Dialogs',
+        'Navigation',
+        'Tables',
+        'Forms',
+        'Alerts/Toasts',
+        'Dropdowns',
+        'Tabs',
+        'Badges',
+        'Avatars',
+      ],
+      defaultValue: ['Buttons', 'Input Fields', 'Cards'],
+    },
+    {
+      id: 'style',
+      label: 'Design Style',
+      type: 'select',
+      options: [
+        'Modern & Minimal',
+        'Material Design',
+        'Fluent Design',
+        'Ant Design',
+        'Custom Brand',
+      ],
+      defaultValue: 'Modern & Minimal',
+    },
+    {
+      id: 'variants',
+      label: 'Variant Complexity',
+      type: 'select',
+      options: [
+        'Basic (Single variant)',
+        'Standard (2-3 variants)',
+        'Comprehensive (Multiple variants & states)',
+      ],
+      defaultValue: 'Standard (2-3 variants)',
+    },
+    {
+      id: 'features',
+      label: 'Features',
+      type: 'multiSelect',
+      options: [
+        'Dark Mode Support',
+        'Accessibility (WCAG 2.1)',
+        'Responsive Sizing',
+        'Animation States',
+        'Theme Customization',
+        'RTL Support',
+      ],
+      defaultValue: ['Dark Mode Support', 'Accessibility (WCAG 2.1)'],
+    },
+  ],
+};
