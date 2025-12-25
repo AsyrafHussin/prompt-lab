@@ -29,14 +29,14 @@
 
   /* Portfolio Minimalist (Glass) Design System */
   /* Light theme colors */
-  --color-background: oklch(100% 0 0);
+  --color-background: oklch(97% 0 0);
   --color-foreground: oklch(3.9% 0 0);
-  --color-card: oklch(100% 0 0);
-  --color-card-elevated: oklch(100% 0 0);
+  --color-card: oklch(99% 0 0);
+  --color-card-elevated: oklch(98.5% 0 0);
   --color-card-muted: oklch(96.1% 0 0);
   --color-border: oklch(89.8% 0 0);
   --color-ring: oklch(3.9% 0 0);
-  --color-ring-offset: oklch(100% 0 0);
+  --color-ring-offset: oklch(97% 0 0);
   --color-muted: oklch(96.1% 0 0);
   --color-accent: oklch(96.1% 0 0);
 
@@ -55,8 +55,8 @@
   --color-dark-primary: oklch(70% 0.191 250);
 
   /* Gradients */
-  --gradient-from: #ffffff;
-  --gradient-to: #f8f8f8;
+  --gradient-from: oklch(97% 0 0);
+  --gradient-to: oklch(95% 0 0);
   --dark-gradient-from: oklch(25% 0.02 265);
   --dark-gradient-to: oklch(20% 0.015 265);
 

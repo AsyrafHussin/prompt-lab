@@ -39,9 +39,10 @@ export function UITypeSelector() {
                 'transition-[background-color,color,box-shadow,filter] ease-out-quad duration-100',
                 'focus-visible:ring-1 focus-visible:ring-ring/50 focus-visible:ring-offset-1 focus-visible:ring-offset-ring-offset/50 focus-visible:outline-none',
                 {
-                  'bg-linear-to-b from-gradient-from to-gradient-to hover:contrast-90 text-foreground': isSelected,
+                  'bg-linear-to-b from-gradient-from to-gradient-to hover:contrast-90 text-foreground border-2 border-foreground/15': isSelected,
                   'shadow-[inset_0_1px_0_0_rgb(255_255_255/.32),0px_1px_1px_-0.5px_rgba(9,9,11,0.05),0px_3px_3px_-1.5px_rgba(9,9,11,0.05),0px_6px_6px_-3px_rgba(9,9,11,0.05)]': isSelected,
                   'dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/.12),0px_1px_1px_-0.5px_rgba(9,9,11,0.05),0px_3px_3px_-1.5px_rgba(9,9,11,0.05),0px_6px_6px_-3px_rgba(9,9,11,0.05)]': isSelected,
+                  'dark:border-2 dark:border-foreground/20': isSelected,
                   'border border-border bg-card hover:bg-card-muted text-foreground shadow-sm card-highlight': !isSelected,
                 }
               )}
