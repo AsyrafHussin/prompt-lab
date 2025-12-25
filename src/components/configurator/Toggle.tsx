@@ -9,18 +9,33 @@ interface ToggleProps {
 }
 
 export function Toggle({ label, value, onChange, description }: ToggleProps) {
+  // Generate unique ID for proper label association
+  const toggleId = `toggle-${label.toLowerCase().replace(/\s+/g, '-')}`;
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex-1">
-        <label className="block text-sm font-medium text-foreground">{label}</label>
-        {description && <p className="text-xs text-foreground/70 mt-1">{description}</p>}
+        <label htmlFor={toggleId} className="block text-sm font-medium text-foreground cursor-pointer">
+          {label}
+        </label>
+        {description && (
+          <p id={`${toggleId}-description`} className="text-xs text-foreground/70 mt-1">
+            {description}
+          </p>
+        )}
       </div>
       <button
+        id={toggleId}
+        type="button"
+        role="switch"
+        aria-checked={value}
+        aria-labelledby={toggleId}
+        aria-describedby={description ? `${toggleId}-description` : undefined}
         onClick={() => onChange(!value)}
         className={clsx(
-          'relative inline-flex h-6 w-11 items-center rounded-full outline-none',
+          'relative inline-flex h-6 w-11 items-centers rounded-full outline-none',
           'transition-[background-color] ease-out-quad duration-100',
-          'focus-visible:ring-1 focus-visible:ring-ring/50 focus-visible:ring-offset-1 focus-visible:ring-offset-ring-offset/50',
+          'focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:ring-offset-2 focus-visible:ring-offset-ring-offset/50',
           {
             'bg-card-elevated border border-border': value,
             'bg-card-muted border border-border': !value,
@@ -35,6 +50,7 @@ export function Toggle({ label, value, onChange, description }: ToggleProps) {
               'translate-x-1': !value,
             }
           )}
+          aria-hidden="true"
         />
       </button>
     </div>

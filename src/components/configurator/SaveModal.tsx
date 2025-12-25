@@ -18,10 +18,15 @@ export function SaveModal() {
       return;
     }
 
-    saveConfiguration(name);
-    addToast(`Configuration "${name}" saved successfully!`, 'success');
-    setName('');
-    closeSaveModal();
+    try {
+      saveConfiguration(name);
+      addToast(`Configuration "${name}" saved successfully!`, 'success');
+      setName('');
+      closeSaveModal();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to save configuration';
+      addToast(message, 'error');
+    }
   };
 
   const handleClose = () => {

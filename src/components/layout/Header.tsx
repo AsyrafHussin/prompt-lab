@@ -28,7 +28,7 @@ export function Header() {
         {/* Logo */}
         <button
           type="button"
-          role="menuitem"
+          aria-label="PromptLab home"
           className="relative inline-flex cursor-pointer items-center justify-center rounded-md [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 transition-[background-color,color,box-shadow,filter] ease-out-quad duration-100 focus-visible:ring-1 focus-visible:ring-ring/50 focus-visible:ring-offset-1 focus-visible:ring-offset-ring-offset/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 h-8 gap-1.5 has-[>svg]:px-2.5 p-0 text-sm font-medium text-foreground hover:bg-transparent"
         >
           <div className="flex items-center gap-2">
@@ -48,7 +48,7 @@ export function Header() {
             type="button"
             onClick={toggleTheme}
             className="inline-flex cursor-pointer items-center justify-center rounded-md font-medium [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 transition-[background-color,color,box-shadow,filter] ease-out-quad duration-100 focus-visible:ring-1 focus-visible:ring-ring/50 focus-visible:ring-offset-1 focus-visible:ring-offset-ring-offset/50 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 gap-1.5 has-[>svg]:px-2.5 size-8 p-0 text-sm bg-transparent hover:bg-transparent text-foreground/70 hover:text-foreground relative overflow-hidden [&_svg]:size-4"
-            aria-label="Toggle theme"
+            aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             <Sun className={`transition-transform ease-out-quad duration-100 ${isDark ? '' : 'scale-0 absolute'}`} size={15} />
             <Moon className={`transition-transform ease-out-quad duration-100 ${isDark ? 'scale-0 absolute' : ''}`} size={15} />

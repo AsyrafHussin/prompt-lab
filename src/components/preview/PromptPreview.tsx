@@ -4,9 +4,11 @@ import { CopyButton } from './CopyButton';
 import { ExportOptions } from './ExportOptions';
 import { useConfigStore } from '../../store/configStore';
 import { useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 
 export function PromptPreview() {
   const generatedPrompt = useConfigStore((state) => state.generatedPrompt);
+  const isGenerating = useConfigStore((state) => state.isGenerating);
   const generatePrompt = useConfigStore((state) => state.generatePrompt);
 
   // Generate initial prompt on mount
@@ -29,7 +31,12 @@ export function PromptPreview() {
 
       <Card className="flex-1 overflow-hidden flex flex-col" elevated highlight>
         <div className="flex-1 overflow-y-auto custom-scrollbar">
-          {generatedPrompt ? (
+          {isGenerating ? (
+            <div className="flex flex-col items-center justify-center h-full gap-3">
+              <Loader2 className="w-8 h-8 text-foreground/70 animate-spin" />
+              <p className="text-sm text-foreground/70">Generating prompt...</p>
+            </div>
+          ) : generatedPrompt ? (
             <pre className="text-sm text-foreground whitespace-pre-wrap font-mono leading-relaxed">
               {generatedPrompt}
             </pre>

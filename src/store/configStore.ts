@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware';
 import { nanoid } from 'nanoid';
 import type { UIType, TemplateConfig, SavedConfiguration, TechStack } from '../types';
 import { templateEngine } from '../templates';
+import { debounce } from '../utils/debounce';
 
 interface ConfigState {
   // Current UI Type
@@ -17,6 +18,9 @@ interface ConfigState {
 
   // Generated prompt
   generatedPrompt: string;
+
+  // Loading state for async template generation
+  isGenerating: boolean;
 
   // Saved configurations
   savedConfigs: SavedConfiguration[];
@@ -45,28 +49,59 @@ const getDefaultConfigurations = (): Record<UIType, TemplateConfig> => {
   return configs;
 };
 
+// Create debounced prompt generator outside the store
+// This will be initialized once the store is created
+let debouncedGeneratePrompt: (() => void) | null = null;
+
 export const useConfigStore = create<ConfigState>()(
   persist(
-    (set, get) => ({
+    (set, get) => {
+      // Helper function to actually generate the prompt (async for code-split templates)
+      const generatePromptImpl = async () => {
+        const { currentUIType, configurations, techStack } = get();
+        const config = configurations[currentUIType];
+
+        // Set loading state
+        set({ isGenerating: true });
+
+        try {
+          const prompt = await templateEngine.generate(currentUIType, config, techStack);
+          set({ generatedPrompt: prompt, isGenerating: false });
+        } catch (error) {
+          console.error('Error generating prompt:', error);
+          set({
+            generatedPrompt: 'Error generating prompt. Please check your configuration.',
+            isGenerating: false,
+          });
+        }
+      };
+
+      // Initialize debounced version (300ms delay for form input changes)
+      if (!debouncedGeneratePrompt) {
+        debouncedGeneratePrompt = debounce(generatePromptImpl, 300);
+      }
+
+      return {
       // Initial state
       currentUIType: 'website',
       techStack: 'React + Tailwind v4',
       configurations: getDefaultConfigurations(),
       generatedPrompt: '',
+      isGenerating: false,
       savedConfigs: [],
 
       // Set current UI type
       setUIType: (type: UIType) => {
         set({ currentUIType: type });
-        // Auto-generate prompt when switching types
-        get().generatePrompt();
+        // Immediate generation for intentional UI type changes
+        generatePromptImpl();
       },
 
       // Set tech stack
       setTechStack: (stack: TechStack) => {
         set({ techStack: stack });
-        // Auto-generate prompt when stack changes
-        get().generatePrompt();
+        // Immediate generation for intentional tech stack changes
+        generatePromptImpl();
       },
 
       // Update configuration for a specific UI type
@@ -80,9 +115,9 @@ export const useConfigStore = create<ConfigState>()(
             },
           },
         }));
-        // Auto-generate prompt when config changes
-        if (type === get().currentUIType) {
-          get().generatePrompt();
+        // Debounced generation for frequent config updates (typing, slider changes)
+        if (type === get().currentUIType && debouncedGeneratePrompt) {
+          debouncedGeneratePrompt();
         }
       },
 
@@ -94,35 +129,33 @@ export const useConfigStore = create<ConfigState>()(
             [type]: templateEngine.getDefaultConfig(type),
           },
         }));
-        // Regenerate prompt if resetting current type
+        // Immediate generation for intentional reset actions
         if (type === get().currentUIType) {
-          get().generatePrompt();
+          generatePromptImpl();
         }
       },
 
-      // Generate prompt for current UI type
-      generatePrompt: () => {
-        const { currentUIType, configurations, techStack } = get();
-        const config = configurations[currentUIType];
-
-        try {
-          const prompt = templateEngine.generate(currentUIType, config, techStack);
-          set({ generatedPrompt: prompt });
-        } catch (error) {
-          console.error('Error generating prompt:', error);
-          set({ generatedPrompt: 'Error generating prompt. Please check your configuration.' });
-        }
-      },
+      // Generate prompt for current UI type (immediate, not debounced)
+      generatePrompt: generatePromptImpl,
 
       // Save current configuration
       saveConfiguration: (name: string) => {
         const { currentUIType, configurations } = get();
+        const config = configurations[currentUIType];
+
+        // Validate configuration before saving
+        const isValid = templateEngine.validateConfig(currentUIType, config);
+        if (!isValid) {
+          console.error('Cannot save invalid configuration');
+          throw new Error('Configuration is invalid. Please ensure all required fields are filled.');
+        }
+
         const newConfig: SavedConfiguration = {
           id: nanoid(),
           name,
           uiType: currentUIType,
-          techStack: get().techStack, // Save tech stack too
-          config: configurations[currentUIType],
+          techStack: get().techStack,
+          config,
           timestamp: Date.now(),
         };
 
@@ -134,17 +167,29 @@ export const useConfigStore = create<ConfigState>()(
       // Load a saved configuration
       loadConfiguration: (id: string) => {
         const saved = get().savedConfigs.find((c) => c.id === id);
-        if (saved) {
-          set((state) => ({
-            currentUIType: saved.uiType,
-            techStack: (saved as any).techStack || 'React + Tailwind v4', // Backward compatibility
-            configurations: {
-              ...state.configurations,
-              [saved.uiType]: saved.config,
-            },
-          }));
-          get().generatePrompt();
+        if (!saved) {
+          throw new Error('Configuration not found. It may have been deleted.');
         }
+
+        // Validate saved configuration before loading
+        const isValid = templateEngine.validateConfig(saved.uiType, saved.config);
+        if (!isValid) {
+          console.warn('Loaded configuration is incomplete. Some fields may be missing.');
+          // Still load it, but user will need to fix missing fields
+        }
+
+        // Update current UI type, tech stack, and configuration
+        set((state) => ({
+          currentUIType: saved.uiType,
+          techStack: saved.techStack,
+          configurations: {
+            ...state.configurations,
+            [saved.uiType]: saved.config,
+          },
+        }));
+
+        // Immediate generation for intentional load action
+        generatePromptImpl();
       },
 
       // Delete a saved configuration
@@ -158,7 +203,8 @@ export const useConfigStore = create<ConfigState>()(
       clearAllSavedConfigs: () => {
         set({ savedConfigs: [] });
       },
-    }),
+    };
+  },
     {
       name: 'ui-prompt-generator-config',
       partialize: (state) => ({
@@ -167,6 +213,17 @@ export const useConfigStore = create<ConfigState>()(
         currentUIType: state.currentUIType,
         techStack: state.techStack,
       }),
+      // Migration for older saved configurations without techStack
+      migrate: (persistedState: any) => {
+        if (persistedState.savedConfigs) {
+          persistedState.savedConfigs = persistedState.savedConfigs.map((config: any) => ({
+            ...config,
+            techStack: config.techStack || 'React + Tailwind v4',
+          }));
+        }
+        return persistedState as ConfigState;
+      },
+      version: 1,
     }
   )
 );

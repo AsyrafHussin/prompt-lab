@@ -9,16 +9,17 @@ export class TemplateEngine {
   }
 
   /**
-   * Generate a prompt for a specific UI type with given configuration
+   * Generate a prompt for a specific UI type with given configuration.
+   * Now async to support lazy-loaded templates for code splitting.
    */
-  generate(uiType: UIType, config: TemplateConfig, techStack: TechStack): string {
+  async generate(uiType: UIType, config: TemplateConfig, techStack: TechStack): Promise<string> {
     const templateEntry = this.registry[uiType];
 
     if (!templateEntry) {
       throw new Error(`No template found for UI type: ${uiType}`);
     }
 
-    return templateEntry.template.generate(config, techStack);
+    return await templateEntry.template.generate(config, techStack);
   }
 
   /**

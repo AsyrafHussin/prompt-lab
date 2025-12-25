@@ -1,6 +1,6 @@
 
 import { Trash2, FolderOpen } from 'lucide-react';
-import * as Icons from 'lucide-react';
+import { getIcon } from '../../utils/iconMap';
 import { Modal } from '../common/Modal';
 import { useConfigStore } from '../../store/configStore';
 import { useUIStore } from '../../store/uiStore';
@@ -15,15 +15,25 @@ export function LoadModal() {
   const addToast = useUIStore((state) => state.addToast);
 
   const handleLoad = (id: string, name: string) => {
-    loadConfiguration(id);
-    addToast(`Configuration "${name}" loaded successfully!`, 'success');
-    closeLoadModal();
+    try {
+      loadConfiguration(id);
+      addToast(`Configuration "${name}" loaded successfully!`, 'success');
+      closeLoadModal();
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Failed to load configuration';
+      addToast(message, 'error');
+    }
   };
 
   const handleDelete = (id: string, name: string) => {
     if (confirm(`Are you sure you want to delete "${name}"?`)) {
-      deleteConfiguration(id);
-      addToast(`Configuration "${name}" deleted`, 'info');
+      try {
+        deleteConfiguration(id);
+        addToast(`Configuration "${name}" deleted`, 'info');
+      } catch (error) {
+        const message = error instanceof Error ? error.message : 'Failed to delete configuration';
+        addToast(message, 'error');
+      }
     }
   };
 
@@ -40,7 +50,7 @@ export function LoadModal() {
           <div className="space-y-2 max-h-96 overflow-y-auto custom-scrollbar">
             {savedConfigs.map((config) => {
               const uiTypeConfig = templateEngine.getConfig(config.uiType);
-              const IconComponent = Icons[uiTypeConfig.icon as keyof typeof Icons] as any;
+              const IconComponent = getIcon(uiTypeConfig.icon);
               return (
                 <div
                   key={config.id}

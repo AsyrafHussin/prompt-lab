@@ -1,6 +1,6 @@
 
 import { clsx } from 'clsx';
-import * as Icons from 'lucide-react';
+import { getIcon } from '../../utils/iconMap';
 import { useConfigStore } from '../../store/configStore';
 import { templateEngine } from '../../templates';
 
@@ -12,18 +12,26 @@ export function UITypeSelector() {
 
   return (
     <div className="space-y-3">
-      <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground">
+      <h3 id="ui-type-label" className="text-sm font-semibold uppercase tracking-wide text-foreground">
         UI Type
       </h3>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+      <div
+        role="radiogroup"
+        aria-labelledby="ui-type-label"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3"
+      >
         {uiTypes.map((type) => {
           const config = templateEngine.getConfig(type);
           const isSelected = currentUIType === type;
-          const IconComponent = Icons[config.icon as keyof typeof Icons] as any;
+          const IconComponent = getIcon(config.icon);
 
           return (
             <button
               key={type}
+              type="button"
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`Select ${config.label} UI type`}
               onClick={() => setUIType(type)}
               className={clsx(
                 'relative p-4 rounded-md text-center',

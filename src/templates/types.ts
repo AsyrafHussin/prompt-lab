@@ -34,8 +34,9 @@ export interface TemplateConfig {
 }
 
 // Prompt template generator interface
+// Now supports async for code-split templates
 export interface PromptTemplate {
-  generate: (config: TemplateConfig, techStack: TechStack) => string;
+  generate: (config: TemplateConfig, techStack: TechStack) => string | Promise<string>;
 }
 
 // Complete template entry (combines config and template)
