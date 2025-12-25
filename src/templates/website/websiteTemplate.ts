@@ -1,6 +1,5 @@
 
 import type { PromptTemplate, TemplateConfig, TechStack } from '../types';
-import { formatList } from '../templateEngine';
 import { getDesignSystem, mapAestheticToDesignSystem } from '../../config/designSystems';
 
 export const websiteTemplate: PromptTemplate = {

@@ -1,7 +1,5 @@
 import React from 'react';
-import { Code } from 'lucide-react';
 import { useConfigStore } from '../../store/configStore';
-import { useThemeStore } from '../../store/themeStore';
 import type { TechStack } from '../../templates/types';
 import { clsx } from 'clsx';
 

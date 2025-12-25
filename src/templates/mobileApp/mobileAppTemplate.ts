@@ -1,6 +1,5 @@
 
 import type { PromptTemplate, TemplateConfig } from '../types';
-import { formatList } from '../templateEngine';
 
 export const mobileAppTemplate: PromptTemplate = {
   generate: (config: TemplateConfig): string => {

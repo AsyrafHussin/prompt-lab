@@ -1,6 +1,5 @@
 
 import type { PromptTemplate, TemplateConfig } from '../types';
-import { formatList } from '../templateEngine';
 
 export const dashboardTemplate: PromptTemplate = {
   generate: (config: TemplateConfig): string => {
@@ -74,22 +73,6 @@ Provide a complete dashboard UI design including:
 - Sample data visualizations with proper labeling and legends`;
   },
 };
-
-function getSuggestedLayout(dashboardType: string, sidebarStyle: string): string {
-  if (sidebarStyle.includes('Top Navigation')) {
-    return 'Full-width layout with top navigation and hero metrics section';
-  }
-
-  if (dashboardType.includes('Analytics') || dashboardType.includes('Financial')) {
-    return 'Multi-column grid layout with KPI cards at top, followed by detailed charts';
-  }
-
-  if (dashboardType.includes('CRM') || dashboardType.includes('Project')) {
-    return 'List-detail layout with filterable sidebar and main content area';
-  }
-
-  return 'Card-based grid layout with responsive columns';
-}
 
 function generateDashboardRequirements(
   dashboardType: string,

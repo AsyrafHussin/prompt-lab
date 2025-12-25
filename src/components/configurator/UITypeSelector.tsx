@@ -2,9 +2,7 @@
 import { clsx } from 'clsx';
 import * as Icons from 'lucide-react';
 import { useConfigStore } from '../../store/configStore';
-import { useThemeStore } from '../../store/themeStore';
 import { templateEngine } from '../../templates';
-import type { UIType } from '../../types';
 
 export function UITypeSelector() {
   const currentUIType = useConfigStore((state) => state.currentUIType);

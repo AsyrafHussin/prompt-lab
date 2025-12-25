@@ -2,7 +2,6 @@
 import { Trash2, FolderOpen } from 'lucide-react';
 import * as Icons from 'lucide-react';
 import { Modal } from '../common/Modal';
-import { Button } from '../common/Button';
 import { useConfigStore } from '../../store/configStore';
 import { useUIStore } from '../../store/uiStore';
 import { templateEngine } from '../../templates';

@@ -1,6 +1,5 @@
 
 import { useConfigStore } from '../../store/configStore';
-import { useThemeStore } from '../../store/themeStore';
 import { templateEngine } from '../../templates';
 import { Dropdown } from './Dropdown';
 import { MultiSelect } from './MultiSelect';
@@ -11,8 +10,6 @@ export function ConfigForm() {
   const currentUIType = useConfigStore((state) => state.currentUIType);
   const configurations = useConfigStore((state) => state.configurations);
   const updateConfig = useConfigStore((state) => state.updateConfig);
-  const theme = useThemeStore((state) => state.theme);
-  const isDark = theme === 'dark';
 
   const config = templateEngine.getConfig(currentUIType);
   const currentConfig = configurations[currentUIType];

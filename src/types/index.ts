@@ -1,10 +1,11 @@
 
-import type { UIType, TemplateConfig } from '../templates/types';
+import type { UIType, TemplateConfig, TechStack } from '../templates/types';
 
 export interface SavedConfiguration {
   id: string;
   name: string;
   uiType: UIType;
+  techStack: TechStack;
   config: TemplateConfig;
   timestamp: number;
 }

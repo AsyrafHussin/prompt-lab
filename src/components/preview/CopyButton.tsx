@@ -1,6 +1,5 @@
 
 import { Check, Copy } from 'lucide-react';
-import { Button } from '../common/Button';
 import { useClipboard } from '../../hooks/useClipboard';
 import { useUIStore } from '../../store/uiStore';
 

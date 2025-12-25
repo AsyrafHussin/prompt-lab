@@ -1,7 +1,6 @@
 
 import { clsx } from 'clsx';
 import { X } from 'lucide-react';
-import { useThemeStore } from '../../store/themeStore';
 
 interface MultiSelectProps {
   label: string;
