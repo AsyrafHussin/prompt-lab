@@ -2,7 +2,7 @@
 
 A modern, powerful prompt generator for crafting AI-ready design prompts. Supports multiple interface types with comprehensive configuration options.
 
-## ✨ Features
+## Features
 
 ### 5 UI Types Supported
 - **Website** - E-commerce, Landing Pages, Portfolios, Blogs, Corporate sites, SaaS products
@@ -11,7 +11,7 @@ A modern, powerful prompt generator for crafting AI-ready design prompts. Suppor
 - **Desktop** - Electron, Native desktop applications
 - **UI Kit** - Design Systems, Component Libraries, Pattern Libraries
 
-### 🚀 Key Features
+### Key Features
 - **Real-time Generation** - Prompts generate instantly as you configure
 - **Template-Based** - Works 100% offline, no AI API needed
 - **Save/Load Configurations** - Save favorite configurations and reload them later
@@ -20,7 +20,7 @@ A modern, powerful prompt generator for crafting AI-ready design prompts. Suppor
 - **Responsive Design** - Works on desktop, tablet, and mobile
 - **Dark Mode** - Beautiful dark theme optimized for extended use
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **React 18** + **TypeScript** - Modern React with type safety
 - **Tailwind CSS v4** - CSS-based configuration (no JavaScript config)
@@ -28,7 +28,7 @@ A modern, powerful prompt generator for crafting AI-ready design prompts. Suppor
 - **Vite** - Fast build tool and dev server
 - **Lucide React** - Beautiful icon library
 
-## 🚀 Getting Started
+## Getting Started
 
 ```bash
 npm install          # Install dependencies
@@ -39,7 +39,7 @@ npm run preview      # Preview production build
 
 Open http://localhost:5173/ to view the app.
 
-## 📖 How to Use
+## How to Use
 
 1. **Select UI Type** - Choose from Website, Dashboard, Mobile, Desktop, or UI Kit
 2. **Configure** - Customize your design using the form options (style, components, layout, etc.)
@@ -58,7 +58,7 @@ Click **Export** to download your prompt as:
 - **JSON (.json)** - Includes configuration and prompt
 - **Share Link** - Generate a shareable URL with your configuration
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -79,7 +79,7 @@ src/
 └── types/                   # TypeScript types
 ```
 
-## 🎯 Why PromptLab?
+## Why PromptLab?
 
 1. **Multi-Type Support** - Generate prompts for 5 different UI types
 2. **Comprehensive Configuration** - 6-8 options per UI type for precise control
@@ -89,7 +89,7 @@ src/
 6. **Modern Stack** - Built with cutting-edge technologies (Tailwind v4, TypeScript, Zustand)
 7. **Extensible** - Clean architecture makes adding new UI types simple
 
-## 🔧 Adding New UI Types
+## Adding New UI Types
 
 To add a new UI type in just 4 steps:
 
@@ -100,6 +100,8 @@ To add a new UI type in just 4 steps:
 
 The UI automatically updates!
 
-## 📝 License
+## License
 
-Built with ❤️ using Claude Code
+MIT License - see [LICENSE](LICENSE) file for details.
+
+Copyright (c) 2025 Asyraf Hussin

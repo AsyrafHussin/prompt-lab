@@ -7,7 +7,7 @@ I completely rebuilt the design system to **match the reference HTML exactly**, 
 ## Key Improvements
 
 ### 1. **CSS Custom Properties** (index.css)
-✅ Added semantic design tokens from reference:
+Added semantic design tokens from reference:
 ```css
 --color-foreground
 --color-card
@@ -23,7 +23,7 @@ I completely rebuilt the design system to **match the reference HTML exactly**, 
 ```
 
 ### 2. **Utility Classes** (index.css)
-✅ Added custom utilities matching reference patterns:
+Added custom utilities matching reference patterns:
 - `text-foreground` / `text-foreground/70` - Semantic text colors
 - `bg-card` / `bg-card-elevated` / `bg-card-muted` - Card backgrounds
 - `border-border` - Semantic border color
@@ -32,7 +32,7 @@ I completely rebuilt the design system to **match the reference HTML exactly**, 
 - `bg-linear-to-b` / `from-gradient-from` / `to-gradient-to` - Gradient utilities
 
 ### 3. **Header Component** (Header.tsx)
-✅ Exact class patterns from reference:
+Exact class patterns from reference:
 ```tsx
 // Logo button
 className="relative inline-flex cursor-pointer items-center justify-center rounded-md
@@ -59,7 +59,7 @@ className="... text-foreground/70 hover:text-foreground ..."
 ```
 
 ### 4. **Button Component** (Button.tsx)
-✅ Sophisticated shadows and gradients from reference:
+Sophisticated shadows and gradients from reference:
 ```tsx
 // Primary button
 className="bg-linear-to-b from-gradient-from to-gradient-to hover:contrast-90
@@ -78,7 +78,7 @@ className="[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4"
 ```
 
 ### 5. **Card Component** (Card.tsx)
-✅ Proper semantic classes:
+Proper semantic classes:
 ```tsx
 className="rounded-lg p-6 border border-border
   bg-card-elevated card-highlight
@@ -90,7 +90,7 @@ style={{
 ```
 
 ### 6. **Dark Mode Integration**
-✅ Added `.dark` class toggle on document root:
+Added `.dark` class toggle on document root:
 ```tsx
 useEffect(() => {
   if (isDark) {
@@ -106,22 +106,22 @@ Now all CSS utilities work with `.dark` prefix!
 ## Reference Pattern Features
 
 ### Advanced Class Patterns
-✅ `[&_svg]:pointer-events-none` - Disable pointer events on all SVG children
-✅ `[&_svg:not([class*='size-'])]:size-4` - Default size for SVGs without size class
-✅ `has-[>svg]:px-2.5` - Conditional padding when contains SVG
-✅ `transition-[background-color,color,box-shadow,filter]` - Specific transition properties
+`[&_svg]:pointer-events-none` - Disable pointer events on all SVG children
+`[&_svg:not([class*='size-'])]:size-4` - Default size for SVGs without size class
+`has-[>svg]:px-2.5` - Conditional padding when contains SVG
+`transition-[background-color,color,box-shadow,filter]` - Specific transition properties
 
 ### Sophisticated Effects
-✅ **Card Highlight**: Gradient overlay with opacity control via `--highlight-opacity`
-✅ **Multi-layered Shadows**: Inset highlight + multiple elevation shadows
-✅ **Color Mixing**: `color-mix(in oklab, ...)` for smooth transparency
-✅ **Custom Easing**: `cubic-bezier(0.25, 0.46, 0.45, 0.94)` for smooth motion
+**Card Highlight**: Gradient overlay with opacity control via `--highlight-opacity`
+**Multi-layered Shadows**: Inset highlight + multiple elevation shadows
+**Color Mixing**: `color-mix(in oklab, ...)` for smooth transparency
+**Custom Easing**: `cubic-bezier(0.25, 0.46, 0.45, 0.94)` for smooth motion
 
 ### Semantic Design Tokens
-✅ `text-foreground` instead of `text-gray-900`
-✅ `bg-card-elevated` instead of `bg-white`
-✅ `border-border` instead of `border-gray-300`
-✅ Opacity modifiers: `text-foreground/70` for secondary text
+`text-foreground` instead of `text-gray-900`
+`bg-card-elevated` instead of `bg-white`
+`border-border` instead of `border-gray-300`
+Opacity modifiers: `text-foreground/70` for secondary text
 
 ## Before vs After
 
@@ -139,13 +139,13 @@ className="shadow-sm"
 
 ### After (Reference-Matched)
 ```tsx
-// ✅ Semantic tokens
+// Semantic tokens
 className="text-foreground bg-card-elevated border-border"
 
-// ✅ Sophisticated transitions
+// Sophisticated transitions
 className="transition-[background-color,color,box-shadow,filter] ease-out-quad duration-100"
 
-// ✅ Multi-layered shadows
+// Multi-layered shadows
 className="shadow-[inset_0_1px_0_0_rgb(255_255_255/.32),...]"
 ```
 
@@ -172,13 +172,13 @@ Border: oklch(28% 0.02 265)
 ## Result
 
 Now the UI uses **exact patterns from the reference**:
-- ✅ Proper design tokens (`--color-foreground`, `--color-card-elevated`)
-- ✅ Sophisticated class patterns (`[&_svg]:pointer-events-none`)
-- ✅ Custom easing functions (`ease-out-quad`)
-- ✅ Card highlight effects (`card-highlight`)
-- ✅ Multi-layered shadows (inset + elevation)
-- ✅ Semantic color utilities (`text-foreground/70`)
-- ✅ Gradient backgrounds with proper fallbacks
-- ✅ Dark mode with `.dark` class prefix
+- Proper design tokens (`--color-foreground`, `--color-card-elevated`)
+- Sophisticated class patterns (`[&_svg]:pointer-events-none`)
+- Custom easing functions (`ease-out-quad`)
+- Card highlight effects (`card-highlight`)
+- Multi-layered shadows (inset + elevation)
+- Semantic color utilities (`text-foreground/70`)
+- Gradient backgrounds with proper fallbacks
+- Dark mode with `.dark` class prefix
 
 The design now looks **professional and polished** like the reference, not oversimplified!

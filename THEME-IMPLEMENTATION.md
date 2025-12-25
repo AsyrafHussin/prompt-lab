@@ -81,14 +81,14 @@ Accent: Blue 600 (#2563eb)
 
 ## Features
 
-✅ **Dark mode by default** - Matches reference portfolio
-✅ **Toggle button** - Sun/Moon icon in navbar (top right)
-✅ **Persistent** - Remembers user preference in localStorage
-✅ **Glass morphism** - Both themes use translucent cards with backdrop blur
-✅ **Smooth transitions** - All theme switches animate smoothly (100-200ms)
-✅ **Complete coverage** - All components support both themes
-✅ **Accessible** - Proper contrast ratios in both modes
-✅ **Clean design** - Minimal, professional look inspired by portfolio reference
+**Dark mode by default** - Matches reference portfolio
+**Toggle button** - Sun/Moon icon in navbar (top right)
+**Persistent** - Remembers user preference in localStorage
+**Glass morphism** - Both themes use translucent cards with backdrop blur
+**Smooth transitions** - All theme switches animate smoothly (100-200ms)
+**Complete coverage** - All components support both themes
+**Accessible** - Proper contrast ratios in both modes
+**Clean design** - Minimal, professional look inspired by portfolio reference
 
 ## How It Works
 
@@ -140,12 +140,12 @@ style={{
 ## Testing
 
 Run `npm run dev` and:
-1. ✅ Should load in **dark mode** by default
-2. ✅ Floating translucent navbar with glass blur
-3. ✅ Click **sun icon** to switch to light mode
-4. ✅ All inputs, cards, and text update colors
-5. ✅ Click **moon icon** to return to dark mode
-6. ✅ Refresh page - theme preference persists
+1. Should load in **dark mode** by default
+2. Floating translucent navbar with glass blur
+3. Click **sun icon** to switch to light mode
+4. All inputs, cards, and text update colors
+5. Click **moon icon** to return to dark mode
+6. Refresh page - theme preference persists
 
 ---
 
